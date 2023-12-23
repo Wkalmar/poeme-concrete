@@ -23,6 +23,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-        cache-dependency-path: "./src/google-crawler/package-lock.json
+        cache-dependency-path: "./src/google-crawler/package-lock.json"
     - run: cd ./src/google-crawler && npm ci
     - run: cd ./src/google-crawler && npm test

@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "jsdom": "^23.0.1"
+  },
+  "devDependencies": {
+    "expect.js": "^0.3.1",
+    "mocha": "^10.2.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  }
+}

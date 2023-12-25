@@ -1,3 +1,4 @@
+/*global console*/
 import https from 'https';
 
 import extractLinks from './links-extractor.mjs';

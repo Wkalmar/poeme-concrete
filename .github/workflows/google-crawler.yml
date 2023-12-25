@@ -26,3 +26,4 @@ jobs:
         cache-dependency-path: "./src/google-crawler/package-lock.json"
     - run: cd ./src/google-crawler && npm ci
     - run: cd ./src/google-crawler && npm test
+    - run: cd ./src/google-crawler && npm run lint

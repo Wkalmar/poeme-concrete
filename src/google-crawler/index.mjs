@@ -1,6 +1,7 @@
+/*global exports*/
 import performSearch from './google-crawler';
 
-exports.handler = async (event) => {
+exports.handler = async () => {
     const links = performSearch();
 
     const response = {

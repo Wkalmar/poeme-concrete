@@ -1,7 +1,7 @@
 /*global exports*/
 import performSearch from './google-crawler.mjs';
 
-exports.handler = async () => {
+const handler = async () => {
     const links = performSearch();
 
     const response = {
@@ -10,3 +10,5 @@ exports.handler = async () => {
     };
     return response;
   };
+
+export default handler;

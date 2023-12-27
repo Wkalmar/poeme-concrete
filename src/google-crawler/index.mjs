@@ -1,5 +1,5 @@
 /*global exports*/
-import performSearch from './google-crawler';
+import performSearch from './google-crawler.mjs';
 
 exports.handler = async () => {
     const links = performSearch();

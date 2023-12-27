@@ -25,5 +25,5 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-central-1
       - run: cd ./src/google-crawler && npm ci
-      - run: cd ./src && zip -r lambda1.zip google-crawler
-      - run: cd ./src && aws lambda update-function-code --function-name=google-crawler --zip-file=fileb://lambda1.zip
+      - run: cd ./src/google-crawler && zip -r lambda1.zip ./
+      - run: cd ./src/google-crawler && aws lambda update-function-code --function-name=google-crawler --zip-file=fileb://lambda1.zip

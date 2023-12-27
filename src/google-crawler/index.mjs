@@ -1,4 +1,3 @@
-/*global exports*/
 import performSearch from './google-crawler.mjs';
 
 export const handler = async () => {

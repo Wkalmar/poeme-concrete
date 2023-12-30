@@ -9,6 +9,7 @@ const extractUrl = (url) =>
 }
 
 const extractLinks = (data) => {
+    console.trace(`extracting links from ${data}`)
     const links = [];
     const dom = new jsdom.JSDOM(data);
     const anchors = dom.window.document.querySelectorAll('a[data-ved]');
@@ -18,7 +19,7 @@ const extractLinks = (data) => {
         links.push(extractUrl(a.href));
       }
     });
-
+    console.trace(`returning ${links}`);
     return links;
 }
 

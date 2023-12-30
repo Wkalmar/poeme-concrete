@@ -1,28 +1,23 @@
 /*global console*/
-import https from 'https';
-
 import extractLinks from './links-extractor.mjs';
 
 const url = 'https://www.google.com/search?q=russian+war+crimes&tbs=qdr:w';
 
-const performSearch = () => {
+const performSearch = async () => {
   console.trace('entered performSearch');
-  https.get(url, res => {
+  try {
+    const res = await fetch(url);
+
     console.trace('entered crawler callback');
-    let data = '';
 
-    res.on('data', chunk => {
-      data += chunk;
-    });
+    let data = await res.text();
 
-    res.on('end', () => {
-      console.trace('retrieved all data');
-      return extractLinks(data);
-    });
+    console.trace('retrieved all data');
+    return extractLinks(data);
 
-  }).on('error', err => {
+  } catch (err) {
     console.error(err);
-  });
+  }
 }
 
 export default performSearch;

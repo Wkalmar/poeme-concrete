@@ -1,8 +1,15 @@
-/*global exports*/
-import performSearch from './google-crawler';
+/*global console*/
+import performSearch from './google-crawler.mjs';
 
-exports.handler = async () => {
-    const links = performSearch();
+export const handler = async () => {
+    console.trace('entered index module');
+    let links = [];
+    try {
+      links = await performSearch();
+    }
+    catch (err) {
+      console.error(err);
+    }
 
     const response = {
       statusCode: 200,

@@ -1,3 +1,4 @@
+/*global console*/
 import jsdom from "jsdom";
 
 const extractUrl = (url) =>

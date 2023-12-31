@@ -1,4 +1,4 @@
-/*global console*/
+/*global console, fetch*/
 import extractLinks from './links-extractor.mjs';
 
 const url = 'https://www.google.com/search?q=russian+war+crimes&tbs=qdr:w';

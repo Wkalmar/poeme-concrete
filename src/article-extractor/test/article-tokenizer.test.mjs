@@ -58,4 +58,14 @@ describe('splitIntoSentences', () => {
         ]
         expect(splitIntoSentences(article)).to.eql(expected);
     })
+
+    it('handles three dots', () => {
+        const article = `The situation is critical because representatives of the UN, OSCE, International Committee of the Red Cross (ICRC), Human Rights Watch, Amnesty International, and others do not have access to captured Ukrainian citizens... The russians refuse to inspect the conditions of detention of prisoners.`;
+
+        const expected = [
+            'The situation is critical because representatives of the UN, OSCE, International Committee of the Red Cross (ICRC), Human Rights Watch, Amnesty International, and others do not have access to captured Ukrainian citizens.',
+            'The russians refuse to inspect the conditions of detention of prisoners.'
+        ]
+        expect(splitIntoSentences(article)).to.eql(expected);
+    });
 });

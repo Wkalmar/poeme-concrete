@@ -26,7 +26,8 @@ const splitIntoSentences = (articleContent) => {
 
     return sentences
         .map(cleanString)
-        .map(collapseWhitespace);
+        .map(collapseWhitespace)
+        .filter(hasEnoughLength);
   }
 
 const cleanString = (str) => {
@@ -66,5 +67,8 @@ const collapseWhitespace = (str) => {
     return result.trim();
   }
 
+const hasEnoughLength = (str) => {
+  return str.length > 5;
+}
 
 export default splitIntoSentences;

@@ -10,9 +10,6 @@ describe('extractLinks', () => {
       `;
 
       const expectedUrls = [
-        'https://www.youtube.com/watch%3Fv%3DDgJwDQnO3tQ',
-        'https://www.youtube.com/watch%3Fv%3DDgJwDQnO3tQ',
-        'https://www.youtube.com/watch%3Fv%3DDgJwDQnO3tQ',
         'https://www.politico.eu/article/ex-russia-wagner-officer-russia-atrocities-ukraine-war-crimes-igor-salikov/',
         'https://english.nv.ua/nation/former-russian-soldier-ready-to-testify-about-russian-crimes-in-ukraine-50378531.html',
         'https://www.reuters.com/world/europe/un-decries-russias-failure-protect-ukraine-civilians-2023-12-19/',

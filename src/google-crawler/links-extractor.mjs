@@ -1,6 +1,8 @@
 /*global console*/
 import jsdom from "jsdom";
 
+const blacklist = ["youtube.com"];
+
 const extractUrl = (url) =>
 {
   const qIndex = url.indexOf('q=');
@@ -21,7 +23,16 @@ const extractLinks = (data) => {
       }
     });
     console.trace(`returning ${links}`);
-    return links;
+    return links.filter(_ => !containsBlacklistedItems(_));
+}
+
+const containsBlacklistedItems = (str) => {
+  for (let i = 0; i < blacklist.length; i++) {
+    if (str.includes(blacklist[i])) {
+      return true;
+    }
+  }
+  return false;
 }
 
 export default extractLinks;

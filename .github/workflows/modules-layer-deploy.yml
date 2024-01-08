@@ -1,7 +1,7 @@
 name: Deploy Modules Layer
 
 on:
-  wokrflow_call:
+  workflow_call:
 
 jobs:
   layer:

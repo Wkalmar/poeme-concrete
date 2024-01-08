@@ -26,4 +26,4 @@ jobs:
           aws-region: eu-central-1
       - run: cd ./src && npm ci
       - run: cd ./src && zip -r layer.zip node_modules
-      - run: aws lambda publish-layer-version --layer-name poeme-concrete-modules --zip-file fileb://layer.zip
+      - run: cd ./src && aws lambda publish-layer-version --layer-name poeme-concrete-modules --zip-file fileb://layer.zip

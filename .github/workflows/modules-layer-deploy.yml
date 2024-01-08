@@ -1,8 +1,8 @@
 name: Deploy Modules Layer
 
 on:
-  push:
-    branches: [ "*" ]
+  wokrflow_call:
+
 jobs:
   layer:
     runs-on: ubuntu-latest

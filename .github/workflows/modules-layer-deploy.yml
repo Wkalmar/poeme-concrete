@@ -1,6 +1,6 @@
 name: Deploy Modules Layer
 
-oon:
+on:
   push:
     branches: [ "*" ]
 jobs:

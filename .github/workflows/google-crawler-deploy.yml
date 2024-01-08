@@ -5,7 +5,7 @@ on:
     branches: [ "*" ]
 jobs:
   layer:
-    uses: modules-layer-deploy.yml
+    uses: ./github/workflows/modules-layer-deploy.yml
 
   lambda:
     runs-on: ubuntu-latest

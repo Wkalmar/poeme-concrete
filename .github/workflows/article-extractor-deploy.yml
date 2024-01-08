@@ -5,7 +5,7 @@ on:
     branches: [ "*" ]
 jobs:
   layer:
-    uses: wkalmar/poeme-concrete/./github/workflows/modules-layer-deploy.yml@layers-refactor
+    uses: ./github/workflows/modules-layer-deploy.yml@layers-refactor
 
   lambda:
     runs-on: ubuntu-latest

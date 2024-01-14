@@ -32,3 +32,5 @@ jobs:
       - run: cd ./src && npm ci
       - run: cd ./src/google-crawler && zip -r lambda1.zip ./
       - run: cd ./src/google-crawler && aws lambda update-function-code --function-name=google-crawler --zip-file=fileb://lambda1.zip
+      - run: echo "layer-arn=$(aws lambda list-layer-versions --layer-name poeme-concrete-modules --region eu-central-1 --query 'LayerVersions[0].LayerVersionArn')" >> $GITHUB_ENV
+      - run: aws lambda update-function-configuration --function-name=google-crawler --layers="${{ env.layer-arn }}"

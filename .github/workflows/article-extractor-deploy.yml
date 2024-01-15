@@ -32,3 +32,5 @@ jobs:
       - run: cd ./src && npm ci
       - run: cd ./src/article-extractor && zip -r lambda1.zip ./
       - run: cd ./src/article-extractor && aws lambda update-function-code --function-name=article-extractor --zip-file=fileb://lambda1.zip
+      - run: echo "layer-arn=$(aws lambda list-layer-versions --layer-name poeme-concrete-modules --region eu-central-1 --query 'LayerVersions[0].LayerVersionArn')" >> $GITHUB_ENV
+      - run: aws lambda update-function-configuration --function-name=article-extractor --layers="${{ env.layer-arn }}"

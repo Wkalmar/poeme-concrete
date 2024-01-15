@@ -1,4 +1,4 @@
-name: Google Crawler Build
+name: Monorepo Build
 
 on:
   push:

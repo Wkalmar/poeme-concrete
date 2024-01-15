@@ -1,4 +1,4 @@
-name: Google Crawler Deploy
+name: Article Extractor Deploy
 
 on:
   push:

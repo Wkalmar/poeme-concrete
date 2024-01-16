@@ -2,7 +2,7 @@ name: Google Crawler Deploy
 
 on:
   push:
-    branches: [ "*" ]
+    branches: [ "master" ]
 jobs:
   layer:
     uses: ./.github/workflows/modules-layer-deploy.yml

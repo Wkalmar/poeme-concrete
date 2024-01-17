@@ -2,7 +2,7 @@ name: Article Extractor Deploy
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "*" ]
 jobs:
   layer:
     uses: ./.github/workflows/modules-layer-deploy.yml

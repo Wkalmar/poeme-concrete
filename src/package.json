@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@mozilla/readability": "^0.5.0",
+    "aws-sdk": "^2.1537.0",
     "jsdom": "^23.0.1"
   },
   "devDependencies": {

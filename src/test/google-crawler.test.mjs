@@ -1,7 +1,7 @@
 /*global describe, it*/
 import expect from 'expect.js'
 
-import extractLinks from '../links-extractor.mjs';
+import extractLinks from '../google-crawler/links-extractor.mjs';
 
 describe('extractLinks', () => {
     it('extracts urls from html', () => {

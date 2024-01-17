@@ -1,16 +1,16 @@
-name: Google Crawler Deploy
+name: Deploy Modules Layer
 
 on:
-  push:
-    branches: [ "master" ]
+  workflow_call:
+    secrets:
+      AWS_ACCESS_KEY_ID:
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        required: true
+
 jobs:
   layer:
-    uses: ./.github/workflows/modules-layer-deploy.yml
-    secrets: inherit
-
-  lambda:
     runs-on: ubuntu-latest
-    needs: layer
     strategy:
       matrix:
         node-version: [20.x]
@@ -30,7 +30,5 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-central-1
       - run: cd ./src && npm ci
-      - run: cd ./src/google-crawler && zip -r lambda1.zip ./
-      - run: cd ./src/google-crawler && aws lambda update-function-code --function-name=google-crawler --zip-file=fileb://lambda1.zip
-      - run: echo "layer-arn=$(aws lambda list-layer-versions --layer-name poeme-concrete-modules --region eu-central-1 --query 'LayerVersions[0].LayerVersionArn')" >> $GITHUB_ENV
-      - run: aws lambda update-function-configuration --function-name=google-crawler --layers="${{ env.layer-arn }}"
+      - run: cd ./src && zip -r layer.zip node_modules
+      - run: cd ./src && aws lambda publish-layer-version --layer-name poeme-concrete-modules --zip-file fileb://layer.zip

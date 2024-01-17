@@ -1,4 +1,4 @@
-name: Google Crawler Build
+name: Monorepo Build
 
 on:
   push:
@@ -23,7 +23,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-        cache-dependency-path: "./src/google-crawler/package-lock.json"
-    - run: cd ./src/google-crawler && npm ci
-    - run: cd ./src/google-crawler && npm test
-    - run: cd ./src/google-crawler && npm run lint
+        cache-dependency-path: "./src/package-lock.json"
+    - run: cd ./src && npm ci
+    - run: cd ./src && npm test
+    - run: cd ./src && npm run lint

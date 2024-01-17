@@ -1,7 +1,7 @@
 /*global describe, it*/
 import expect from 'expect.js'
 
-import splitIntoSentences from '../article-tokenizer.mjs'
+import splitIntoSentences from '../article-extractor/article-tokenizer.mjs'
 
 describe('splitIntoSentences', () => {
     it('splits parapgraph into sentences', () => {

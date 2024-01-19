@@ -48,7 +48,7 @@ async function getSentimentAnalysisApiKey() {
 
 async function performSentimentAnalysis(article, sentimentAnalysisApiKey) {
     const body = JSON.stringify({
-        DocumentText: article.textContent,
+        DocumentText: article,
         PrivateKey: sentimentAnalysisApiKey,
         Secret: ""
     })

@@ -10,12 +10,7 @@ export const handler = async (article) => {
         negativeSentences.forEach(sentence => {
             console.trace(`extracted ${sentence.Text}`);
         });
-
-        const response = {
-            statusCode: 200,
-            body: negativeSentences,
-          };
-        return response;
+        return negativeSentences;
     }
     catch (err) {
         console.log(err);

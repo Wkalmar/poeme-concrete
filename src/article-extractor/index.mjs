@@ -11,11 +11,7 @@ export const handler = async (url) => {
         const reader = new readability.Readability(doc.window.document);
         const article = reader.parse();
         console.trace(`extracted article text: ${article.textContent}`);
-        const response = {
-            statusCode: 200,
-            body: article.textContent,
-          };
-        return response;
+        return article.textContent;
     }
     catch (err) {
         console.log(err);

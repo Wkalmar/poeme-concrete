@@ -10,10 +10,5 @@ export const handler = async () => {
     catch (err) {
       console.error(err);
     }
-
-    const response = {
-      statusCode: 200,
-      body: links,
-    };
-    return response;
+    return links;
   };

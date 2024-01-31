@@ -1,4 +1,4 @@
-import { extractMostColorfulSentences } from "./poem-selector.mjs"
+import extractMostColorfulSentences from "./poem-selector.mjs"
 
 /*global console*/
 export const handler = async (data) => {

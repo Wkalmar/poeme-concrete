@@ -1,4 +1,6 @@
 import extractMostColorfulSentences from "./poem-selector.mjs"
+import Mustache from 'mustache';
+import * as fs from 'fs'
 
 /*global console*/
 export const handler = async (data) => {

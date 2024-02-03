@@ -12,6 +12,14 @@ export const handler = async (data) => {
             .join("\n");
     const html = renderTemplate(formatted);
     console.trace(`rendered html: ${html}`);
+
+    const putParams = {
+      Bucket: 'poeme-concrete',
+      Key: 'index.html',
+      Body: html
+    };
+
+    await s3.putObject(putParams).promise();
 }
 
 const renderTemplate = (poem) => {

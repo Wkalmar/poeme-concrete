@@ -1,10 +1,12 @@
 import extractMostColorfulSentences from "./poem-selector.mjs"
 import Mustache from 'mustache';
 import * as fs from 'fs'
+import aws from 'aws-sdk'
 
 /*global console*/
 export const handler = async (data) => {
     console.trace(`entered reducer module. received ${data}`);
+    const s3 = new aws.S3();
     const poem = extractMostColorfulSentences(data, 10);
     const formatted =
         poem
@@ -16,7 +18,8 @@ export const handler = async (data) => {
     const putParams = {
       Bucket: 'poeme-concrete',
       Key: 'index.html',
-      Body: html
+      Body: html,
+      ContentType: 'text/html',
     };
 
     await s3.putObject(putParams).promise();

@@ -1,11 +1,13 @@
 /*global console, fetch*/
 import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-secrets-manager";
+import boostSentencesContainingGraphicWords from "./whitelist.mjs";
 
 export const handler = async (article) => {
     console.trace(`entered sentiment analyzer. article ${article}`);
     try {
         const sentimentAnalysisApiKey = await getSentimentAnalysisApiKey();
         const data = await performSentimentAnalysis(article, sentimentAnalysisApiKey);
+        boostSentencesContainingGraphicWords(data);
         const negativeSentences = extractMostGraphicSentences(data);
         negativeSentences.forEach(sentence => {
             console.trace(`extracted ${sentence.Text}`);
@@ -63,7 +65,9 @@ async function performSentimentAnalysis(article, sentimentAnalysisApiKey) {
 function extractMostGraphicSentences(data) {
     const coreSentences = data.CoreSentences;
     const negativeSentences = coreSentences.filter(sentence => {
-        return sentence.SentimentPolarity === '-' && sentence.SentimentValue > 0.5;
+        return sentence.SentimentPolarity === '-' && sentence.SentimentValue > 0.5 && sentence.Magnitude > 0.75;
     });
     return negativeSentences;
 }
+
+

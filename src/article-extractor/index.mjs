@@ -2,6 +2,8 @@
 import jsdom from "jsdom";
 import readability from "@mozilla/readability";
 
+import sanitize from "./sanitizer.mjs";
+
 export const handler = async (url) => {
     console.trace(`entered article tokenizer. processing ${url}`);
     try {
@@ -11,7 +13,7 @@ export const handler = async (url) => {
         const reader = new readability.Readability(doc.window.document);
         const article = reader.parse();
         console.trace(`extracted article text: ${article.textContent}`);
-        return article.textContent;
+        return sanitize(article.textContent);
     }
     catch (err) {
         console.log(err);

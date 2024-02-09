@@ -1,4 +1,4 @@
-import { calculateSentiment } from "./utils.mjs"
+import calculateSentiment from "./utils.mjs"
 
 const extractMostColorfulSentences = (data, sentenceCount) => {
     return data.flat()

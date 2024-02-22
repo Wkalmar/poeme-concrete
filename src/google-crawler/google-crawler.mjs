@@ -1,7 +1,7 @@
 /*global console, fetch*/
 import extractLinks from './links-extractor.mjs';
 
-const url = 'https://www.google.com/search?q=russian+war+crimes&tbs=qdr:w';
+const url = 'https://www.google.com/search?q=russian+war+crimes+in+ukraine&tbs=qdr:w';
 
 const performSearch = async () => {
   console.trace('entered performSearch');

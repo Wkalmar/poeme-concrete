@@ -3,6 +3,7 @@ import jsdom from "jsdom";
 import readability from "@mozilla/readability";
 
 import sanitize from "./sanitizer.mjs";
+import removeFootnotes from "./footnote-remover.mjs";
 
 export const handler = async (url) => {
     console.trace(`entered article tokenizer. processing ${url}`);
@@ -13,7 +14,7 @@ export const handler = async (url) => {
         const reader = new readability.Readability(doc.window.document);
         const article = reader.parse();
         console.trace(`extracted article text: ${article.textContent}`);
-        return sanitize(article.textContent);
+        return sanitize(removeFootnotes(article.textContent));
     }
     catch (err) {
         console.log(err);

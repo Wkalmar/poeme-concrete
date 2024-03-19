@@ -2,9 +2,9 @@
 import expect from 'expect.js'
 
 import sanitize from '../article-extractor/sanitizer.mjs';
+import removeFootnotes from '../article-extractor/footnote-remover.mjs';
 
 describe('sanitize', () => {
-
     it('removes non-alphanumeric characters', () => {
       expect(sanitize('abc123!@#')).to.be('abc123!');
     });
@@ -23,6 +23,10 @@ describe('sanitize', () => {
 
     it('removes unwanted punctuation', () => {
       expect(sanitize('#!@$')).to.be('!');
+    });
+
+    it('removes footnotes', () => {
+      expect(removeFootnotes('Hello[1] world[2]!')).to.be('Hello world!');
     });
 
   });

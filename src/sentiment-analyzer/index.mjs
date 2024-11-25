@@ -7,7 +7,7 @@ export const handler = async (article) => {
     try {
         const sentimentAnalysisApiKey = await getSentimentAnalysisApiKey();
         const data = await performSentimentAnalysis(article, sentimentAnalysisApiKey);
-        console.trace(`sentiment analysis result: ${data}`);
+        console.trace(`sentiment analysis result: ${JSON.stringify(data)}`);
         boostSentencesContainingGraphicWords(data);
         const negativeSentences = extractMostGraphicSentences(data);
         negativeSentences.forEach(sentence => {

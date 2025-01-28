@@ -4,7 +4,7 @@ import boostSentencesContainingGraphicWords from "./whitelist.mjs";
 export const handler = async (article) => {
     console.trace(`entered sentiment analyzer. article ${article}`);
     try {
-        const data = await performSentimentAnalysis(article);
+        const data = performSentimentAnalysis(article);
         console.trace(`sentiment analysis result: ${JSON.stringify(data)}`);
         boostSentencesContainingGraphicWords(data);
         const negativeSentences = extractMostGraphicSentences(data);
@@ -18,9 +18,8 @@ export const handler = async (article) => {
     }
 }
 
-async function performSentimentAnalysis(article) {
-    const sentenceDelimeters = ['.', '?', '!'];
-    const sentences = article.split(sentenceDelimeters);
+function performSentimentAnalysis(article) {
+    const sentences = article.split(/[.!?]/).filter(Boolean);
 
     return sentences.map(_ => new {
         SentimentPolarity: '-',

@@ -25,7 +25,7 @@ const performSearch = async () => {
             VersionStage: "AWSCURRENT"
         })
       );
-      const url = `https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=${apiId}&q=russian+war+crimes+in+ukraine&dateRestrict=w`;
+      const url = `https://www.googleapis.com/customsearch/v1?key=${apiKey.SecretString}&cx=${apiId.SecretString}&q=russian+war+crimes+in+ukraine&dateRestrict=w`;
       console.trace(`getting data from ${url}`);
 
       const res = await fetch(url);

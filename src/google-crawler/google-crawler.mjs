@@ -26,9 +26,9 @@ const performSearch = async () => {
         })
       );
       const url = `https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=${apiId}&q=russian+war+crimes+in+ukraine&dateRestrict=w`;
-      const res = await fetch(url);
+      console.trace(`getting data from ${url}`);
 
-      console.trace('entered crawler callback');
+      const res = await fetch(url);
 
       const data = await res.json();
 

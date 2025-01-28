@@ -2,7 +2,7 @@
 const blacklist = ["youtube.com"];
 
 const extractLinks = (data) => {
-    console.trace(`extracting links from ${data}`)
+    console.trace(`extracting links from ${JSON.stringify(data)}`)
     const links = data.items.map(item => item.link);
     return links.filter(_ => !containsBlacklistedItems(_));
 }

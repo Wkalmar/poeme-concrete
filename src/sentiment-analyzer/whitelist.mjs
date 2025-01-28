@@ -16,11 +16,19 @@ const whitelist = [
     'child',
     'abduct',
     'genocid',
-    'shield'
+    'shield',
+    'war',
+    'atrocit',
+    'kill',
+    'injur',
+    'human',
+    'destroy',
+    'unarm',
+    'helples'
 ]
 
 const boostSentencesContainingGraphicWords = (data) => {
-    data.CoreSentences.forEach(item => {
+    data.forEach(item => {
         whitelist.forEach(word => {
             if(item.Text.includes(word)) {
             item.SentimentValue += 0.2;

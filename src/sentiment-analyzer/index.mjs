@@ -19,19 +19,37 @@ export const handler = async (article) => {
 }
 
 function performSentimentAnalysis(article) {
-    const sentences = article.split(/[.!?]/).filter(Boolean);
+    const sentences = splitTextIntoSentences(article);
 
-    return sentences.map(_ => new {
-        SentimentPolarity: '-',
-        SentimentValue: 0.51,
-        Magnitude: 0.76,
-        Text: _
-    });
+    return sentences.map(_ =>
+        {
+            return {
+                SentimentPolarity: '-',
+                SentimentValue: 0.31,
+                Magnitude: 0.56,
+                Text: _
+            }
+        });
 }
 
+function splitTextIntoSentences(text) {
+    const sentenceEndings = /([.!?])\s*(?=\p{Lu})/gu;
+    const sentences = text.split(sentenceEndings).filter(Boolean);
+
+    let result = [];
+    for (let i = 0; i < sentences.length; i++) {
+      if (sentenceEndings.test(sentences[i])) {
+        result[result.length - 1] += sentences[i];
+      } else {
+        result.push(sentences[i]);
+      }
+    }
+
+    return result;
+  }
+
 function extractMostGraphicSentences(data) {
-    const coreSentences = data.CoreSentences;
-    const negativeSentences = coreSentences.filter(sentence => {
+    const negativeSentences = data.filter(sentence => {
         return sentence.SentimentPolarity === '-' && sentence.SentimentValue > 0.5 && sentence.Magnitude > 0.75;
     });
     return negativeSentences;

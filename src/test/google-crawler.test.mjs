@@ -5,18 +5,355 @@ import extractLinks from '../google-crawler/links-extractor.mjs';
 
 describe('extractLinks', () => {
     it('extracts urls from html', () => {
-      const html = `
-        <!doctype html><html lang="uk"><head><meta charset="UTF-8"><meta content="/images/branding/googleg/1x/googleg_standard_color_128dp.png" itemprop="image"><title>russian war crimes - &#1055;&#1086;&#1096;&#1091;&#1082; Google</title></head><body jsmodel="hspDDf"><div class="cOl4Id"><a href="/?sa=X&amp;ved=0ahUKEwip3N6v7aKDAxWOPxAIHbwSBdIQOwgC"><span class="V6gwVd">G</span><span class="iWkuvd">o</span><span class="cDrQ7">o</span><span class="V6gwVd">g</span><span class="ntlR9">l</span><span class="iWkuvd tJ3Myc">e</span></a></div><div class="bz1lBb"><form class="Pg70bf" id="sf"><input name="sca_esv" value="593056060" type="hidden"><input name="ie" value="ISO-8859-1" type="hidden"><input name="tbs" value="qdr:w" type="hidden"><div class="H0PQec"><div class="sbc esbc"><input class="noHIxc" value="russian war crimes" autocapitalize="none" autocomplete="off" name="q" spellcheck="false" type="text"><input name="oq" type="hidden"><input name="aqs" type="hidden"><div class="x">×</div><div class="sc"></div></div></div><button id="qdClwb" type="submit"></button></form></div></header><div id="main"><div><div class="KP7LCb"> <div class="bRsWnc"> <div class="N6RWV"> <div class="Pg70bf Uv67qb"> <span class="OXXup">&#1059;&#1089;&#1110;</span><a class="eZt8xd" href="/search?q=russian+war+crimes&amp;sca_esv=593056060&amp;ie=UTF-8&amp;tbm=nws&amp;source=lnms&amp;sa=X&amp;ved=0ahUKEwip3N6v7aKDAxWOPxAIHbwSBdIQ_AUIBigB">&#1053;&#1086;&#1074;&#1080;&#1085;&#1080;</a><a class="eZt8xd" href="/search?q=russian+war+crimes&amp;sca_esv=593056060&amp;ie=UTF-8&amp;tbm=isch&amp;source=lnms&amp;sa=X&amp;ved=0ahUKEwip3N6v7aKDAxWOPxAIHbwSBdIQ_AUIBygC">&#1047;&#1086;&#1073;&#1088;&#1072;&#1078;&#1077;&#1085;&#1085;&#1103;</a><a class="eZt8xd" href="/search?q=russian+war+crimes&amp;sca_esv=593056060&amp;ie=UTF-8&amp;tbm=vid&amp;source=lnms&amp;sa=X&amp;ved=0ahUKEwip3N6v7aKDAxWOPxAIHbwSBdIQ_AUICCgD">&#1042;&#1110;&#1076;&#1077;&#1086;</a>  <a href="/url?q=https://maps.google.com/maps%3Fq%3Drussian%2Bwar%2Bcrimes%26um%3D1%26ie%3DUTF-8&amp;opi=89978449&amp;sa=U&amp;ved=0ahUKEwip3N6v7aKDAxWOPxAIHbwSBdIQiaAMCAkoBA&amp;usg=AOvVaw39Md9tv0_GZrjMdqfbDDao">&#1050;&#1072;&#1088;&#1090;&#1080;</a>  <a href="/url?q=/search%3Fq%3Drussian%2Bwar%2Bcrimes%26sca_esv%3D593056060%26ie%3DUTF-8%26tbm%3Dshop%26source%3Dlnms&amp;opi=89978449&amp;sa=U&amp;ved=0ahUKEwip3N6v7aKDAxWOPxAIHbwSBdIQiaAMCAooBQ&amp;usg=AOvVaw2ec7PlZL285UzjKjwex-XE">&#1055;&#1086;&#1082;&#1091;&#1087;&#1082;&#1080;</a>  <a href="/search?q=russian+war+crimes&amp;sca_esv=593056060&amp;ie=UTF-8&amp;tbm=bks&amp;source=lnms&amp;sa=X&amp;ved=0ahUKEwip3N6v7aKDAxWOPxAIHbwSBdIQ_AUICygG">&#1050;&#1085;&#1080;&#1075;&#1080;</a>  <div class="FElbsf"><a href="/advanced_search" style="white-space:nowrap" id="st-toggle" role="button">&#1030;&#1085;&#1089;&#1090;&#1088;&#1091;&#1084;&#1077;&#1085;&#1090;&#1080; &#1087;&#1086;&#1096;&#1091;&#1082;&#1091;</a></div> </div> </div> </div> </div><div class="Pg70bf wEsjbd Gx5Zad xpd EtOod pkphOe" id="st-card"><li class="yNFsl SkUj4c">&#1041;&#1091;&#1076;&#1100;-&#1103;&#1082;&#1086;&#1102; &#1084;&#1086;&#1074;&#1086;&#1102;</li><li class="yNFsl"><a href="/search?q=russian+war+crimes&amp;sca_esv=593056060&amp;ie=UTF-8&amp;tbs=qdr:w,lr:lang_1uk&amp;source=lnt&amp;lr=lang_uk&amp;sa=X&amp;ved=0ahUKEwip3N6v7aKDAxWOPxAIHbwSBdIQpwUIDQ">&#1064;&#1091;&#1082;&#1072;&#1090;&#1080; &#1089;&#1090;&#1086;&#1088;&#1110;&#1085;&#1082;&#1080; &#1090;&#1072;&#1082;&#1086;&#1102; &#1084;&#1086;&#1074;&#1086;&#1102;: &#1091;&#1082;&#1088;&#1072;&#1111;&#1085;&#1089;&#1100;&#1082;&#1072;</a></li></ul></div><div class="PA9J5"><div class="RXaOfd vQYuGf" role="button" tabindex="0"><div class="TWMOUc"> &#1047;&#1072; &#1084;&#1080;&#1085;&#1091;&#1083;&#1080;&#1081; &#1090;&#1080;&#1078;&#1076;&#1077;&#1085;&#1100;</div><span class="OmTIzf"></span></div><ul class="sa1toc ozatM"><li class="yNFsl"><a href="/search?q=russian+war+crimes&amp;sca_esv=593056060&amp;ie=UTF-8&amp;tbas=0&amp;source=lnt&amp;sa=X&amp;ved=0ahUKEwip3N6v7aKDAxWOPxAIHbwSBdIQpwUIDg">&#1041;&#1091;&#1076;&#1100;-&#1082;&#1086;&#1083;&#1080;</a></li><div class="kCrYT"><a href="/url?q=https://www.youtube.com/watch%3Fv%3DDgJwDQnO3tQ&amp;sa=U&amp;ved=2ahUKEwip3N6v7aKDAxWOPxAIHbwSBdIQuAJ6BAgIEAI&amp;usg=AOvVaw0MLpeO7xHvxhLRTcJsHX4U" data-ved="2ahUKEwip3N6v7aKDAxWOPxAIHbwSBdIQuAJ6BAgIEAI"><div class="lcJF1d Q6Xouf G6SP0b eeoFaf"><div style="width:120px;height:67px;position:static"><img class="h1hFNe" alt='&#1042;&#1110;&#1076;&#1077;&#1086; &#1079;&#1072; &#1079;&#1072;&#1087;&#1080;&#1090;&#1086;&#1084; "russian war crimes"' src="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" style="width:120px;height:67px" id="dimg_7" data-deferred="1"></div><div class="S9HcI oz9fhd"></div><div class="S9HcI UhWgBb" style="background-size:36px"></div></div></a<div><div class="Gx5Zad fP1Qef xpd EtOod pkphOe"><div class="egMi0 kCrYT"><a href="/url?q=https://www.politico.eu/article/ex-russia-wagner-officer-russia-atrocities-ukraine-war-crimes-igor-salikov/&amp;sa=U&amp;ved=2ahUKEwip3N6v7aKDAxWOPxAIHbwSBdIQFnoECAcQAg&amp;usg=AOvVaw27Pl5Rx2tpYKel877iUa_Z" data-ved="2ahUKEwip3N6v7aKDAxWOPxAIHbwSBdIQFnoECAcQAg"><div class="DnJfK"><div class="j039Wc"><h3 class="zBAuLc l97dzf"><div class="BNeawe vvjwJb AP7Wnd">Ex-Wagner officer says Kremlin ordered 'atrocities' in Ukraine</div></h3></div><div class="sCuL3"><div class="BNeawe UPmit AP7Wnd lRVwie">www.politico.eu &#8250; article &#8250; ex-russia-wagner-of...</div></div></div></a></div><div class="kCrYT"><div><div class="BNeawe s3v9rd AP7Wnd"><div><div><div class="BNeawe s3v9rd AP7Wnd"><span class="r0bn4c rQMQod">3 &#1076;&#1085;&#1110; &#1090;&#1086;&#1084;&#1091;</span><span class="r0bn4c rQMQod"> · </span>Igor Salikov to tell ICC he witnessed war crimes and fled Russia after refusing an order to execute civilians.</div></div></div></div></div></div></div></div><div><div class="Gx5Zad fP1Qef xpd EtOod pkphOe"><div class="egMi0 kCrYT"><a href="/url?q=https://english.nv.ua/nation/former-russian-soldier-ready-to-testify-about-russian-crimes-in-ukraine-50378531.html&amp;sa=U&amp;ved=2ahUKEwip3N6v7aKDAxWOPxAIHbwSBdIQFnoECAYQAg&amp;usg=AOvVaw1XF62u3RlMondVTIUfC70h" data-ved="2ahUKEwip3N6v7aKDAxWOPxAIHbwSBdIQFnoECAYQAg"><div class="DnJfK"><div class="j039Wc"><h3 class="zBAuLc l97dzf"><div class="BNeawe vvjwJb AP7Wnd">Former Russian soldier ready to testify about Russian crimes in ...</div></h3></div><div class="sCuL3"><div class="BNeawe UPmit AP7Wnd lRVwie">english.nv.ua &#8250; Nation</div></div></div></a></div><div class="kCrYT"><div><div class="BNeawe s3v9rd AP7Wnd"><div><div><div class="BNeawe s3v9rd AP7Wnd"><span class="r0bn4c rQMQod">1 &#1076;&#1077;&#1085;&#1100; &#1090;&#1086;&#1084;&#1091;</span><span class="r0bn4c rQMQod"> · </span>Kyiv officials previously said Salikov has decided to cooperate with the Ukrainian investigation into apparent Russian war crimes. Please help us continue ...</div></div></div></div></div></div></div></div><div><div class="Gx5Zad fP1Qef xpd EtOod pkphOe"><div class="egMi0 kCrYT"><a href="/url?q=https://www.reuters.com/world/europe/un-decries-russias-failure-protect-ukraine-civilians-2023-12-19/&amp;sa=U&amp;ved=2ahUKEwip3N6v7aKDAxWOPxAIHbwSBdIQFnoECAUQAg&amp;usg=AOvVaw1lAyha4XwkyG-SUbBfAunI" data-ved="2ahUKEwip3N6v7aKDAxWOPxAIHbwSBdIQFnoECAUQAg"><div class="DnJfK"><div class="j039Wc"><h3 class="zBAuLc l97dzf"><div class="BNeawe vvjwJb AP7Wnd">UN decries Russia's failure to protect Ukraine civilians - Reuters</div></h3></div><div class="sCuL3"><div class="BNeawe UPmit AP7Wnd lRVwie">www.reuters.com &#8250; world &#8250; europe &#8250; un-decrie...</div></div></div></a></div><div class="kCrYT"><div><div class="BNeawe s3v9rd AP7Wnd"><div><div><div class="BNeawe s3v9rd AP7Wnd"><span class="r0bn4c rQMQod">3 &#1076;&#1085;&#1110; &#1090;&#1086;&#1084;&#1091;</span><span class="r0bn4c rQMQod"> · </span>UN rights chief says war crimes committed by Russian forces · More than 1,400 attacks against health since invasion - WHO · Russia accuses UN of "whitewashing" ...</div></div></div></div></div></div></div></div><div><div class="Gx5Zad fP1Qef xpd EtOod pkphOe"><div class="egMi0 kCrYT"><a href="/url?q=https://en.defence-ua.com/analysis/war_criminals_from_the_russian_federation_or_bureaucrats_from_the_un_who_holds_ukrainian_prisoners_of_war-8920.html&amp;sa=U&amp;ved=2ahUKEwip3N6v7aKDAxWOPxAIHbwSBdIQFnoECAIQAg&amp;usg=AOvVaw1BU56IOgH3soLqfvkW_vlF" data-ved="2ahUKEwip3N6v7aKDAxWOPxAIHbwSBdIQFnoECAIQAg"><div class="DnJfK"><div class="j039Wc"><h3 class="zBAuLc l97dzf"><div class="BNeawe vvjwJb AP7Wnd">War Criminals From the russian federation or Bureaucrats From the ...</div></h3></div><div class="sCuL3"><div class="BNeawe UPmit AP7Wnd lRVwie">en.defence-ua.com &#8250; analysis &#8250; war_criminals_f...</div></div></div></a></div><div class="kCrYT"><div><div class="BNeawe s3v9rd AP7Wnd"><div><div><div class="BNeawe s3v9rd AP7Wnd"><span class="r0bn4c rQMQod">2 &#1076;&#1085;&#1110; &#1090;&#1086;&#1084;&#1091;</span><span class="r0bn4c rQMQod"> · </span>We are talking about tens of thousands of Ukrainian prisoners of war, civilian hostages, and abducted children held in Russia and on the occupied Ukrainian ...</div></div></div></div></div></div></div></div><div><div class="Gx5Zad fP1Qef xpd EtOod pkphOe"><div class="egMi0 kCrYT"><a href="/url?q=https://www.rferl.org/a/ukraine-russia-bucha-killings-atrocities-condemnation/31784634.html&amp;sa=U&amp;ved=2ahUKEwip3N6v7aKDAxWOPxAIHbwSBdIQFnoECAsQAg&amp;usg=AOvVaw3lzArWH7_FQWGZQGTh6Erm" data-ved="2ahUKEwip3N6v7aKDAxWOPxAIHbwSBdIQFnoECAsQAg"><div class="DnJfK"><div class="j039Wc"><h3 class="zBAuLc l97dzf"><div class="BNeawe vvjwJb AP7Wnd">Global Condemnation Of Ukraine Killings Mounts - RFE/RL</div></h3></div><div class="sCuL3"><div class="BNeawe UPmit AP7Wnd lRVwie">www.rferl.org &#8250; ukraine-russia-bucha-killings-a...</div></div></div></a></div><div class="kCrYT"><div><div class="BNeawe s3v9rd AP7Wnd"><div><div><div class="BNeawe s3v9rd AP7Wnd"><span class="r0bn4c rQMQod">2 &#1076;&#1085;&#1110; &#1090;&#1086;&#1084;&#1091;</span><span class="r0bn4c rQMQod"> · </span>Evidence that Russian troops killed dozens of civilians in Ukraine has sparked cries of "war crimes" from the international community and calls for further ...</div></div></div></div></div></div></div></div><div><div class="Gx5Zad xpd EtOod pkphOe"><div class="K8tyEc"><div class="mEUgP"><span><div class="BNeawe">&#1055;&#1086;&#1074;&#8217;&#1103;&#1079;&#1072;&#1085;&#1110; &#1087;&#1086;&#1096;&#1091;&#1082;&#1086;&#1074;&#1110; &#1079;&#1072;&#1087;&#1080;&#1090;&#1080;</div></span></div></div><div class="x54gtf"></div><div><div class="gGQDvd iIWm4b"><a class="Q71vJc" href="/search?sca_esv=593056060&amp;ie=UTF-8&amp;tbs=qdr:w&amp;q=Russo-Ukrainian+War+Battles&amp;sa=X&amp;ved=2ahUKEwip3N6v7aKDAxWOPxAIHbwSBdIQ1QJ6BAgEEAw" data-ved="2ahUKEwip3N6v7aKDAxWOPxAIHbwSBdIQ1QJ6BAgEEAw"><accordion-entry-search-icon><span class="ieB2Dd"><img class="OEaqif" alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" style="max-width:20px;max-height:20px" id="dimg_13" data-deferred="1"></span></accordion-entry-search-icon><div class="kjGX2"><span><div class="BNeawe s3v9rd AP7Wnd lRVwie">Russo-Ukrainian War Battles</div></span></div></a></div></div><div class="x54gtf"></div><div><div class="gGQDvd iIWm4b"><a class="Q71vJc" href="/search?sca_esv=593056060&amp;ie=UTF-8&amp;tbs=qdr:w&amp;q=War+between+Russia+and+Ukraine&amp;sa=X&amp;ved=2ahUKEwip3N6v7aKDAxWOPxAIHbwSBdIQ1QJ6BAgEEA4" data-ved="2ahUKEwip3N6v7aKDAxWOPxAIHbwSBdIQ1QJ6BAgEEA4"><accordion-entry-search-icon><span class="ieB2Dd"><img class="OEaqif" alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" style="max-width:20px;max-height:20px" id="dimg_15" data-deferred="1"></span></accordion-entry-search-icon><div class="kjGX2"><span><div class="BNeawe s3v9rd AP7Wnd lRVwie">War between Russia and Ukraine</div></span></div></a></div></div><div class="x54gtf"></div><div><div class="gGQDvd iIWm4b"><a class="Q71vJc" href="/search?sca_esv=593056060&amp;ie=UTF-8&amp;tbs=qdr:w&amp;q=Makiivka+shooting&amp;sa=X&amp;ved=2ahUKEwip3N6v7aKDAxWOPxAIHbwSBdIQ1QJ6BAgEEBA" data-ved="2ahUKEwip3N6v7aKDAxWOPxAIHbwSBdIQ1QJ6BAgEEBA"><accordion-entry-search-icon><span class="ieB2Dd"><img class="OEaqif" alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" style="max-width:20px;max-height:20px" id="dimg_17" data-deferred="1"></span></accordion-entry-search-icon><div class="kjGX2"><span><div class="BNeawe s3v9rd AP7Wnd lRVwie">Makiivka shooting</div></span></div></a></div></div></div></div></body></html>
-      `;
+      const json = {
+   kind:"customsearch#search",
+   url:{
+      type:"application/json",
+      template:"https://www.googleapis.com/customsearch/v1?q={searchTerms}&num={count?}&start={startIndex?}&lr={language?}&safe={safe?}&cx={cx?}&sort={sort?}&filter={filter?}&gl={gl?}&cr={cr?}&googlehost={googleHost?}&c2coff={disableCnTwTranslation?}&hq={hq?}&hl={hl?}&siteSearch={siteSearch?}&siteSearchFilter={siteSearchFilter?}&exactTerms={exactTerms?}&excludeTerms={excludeTerms?}&linkSite={linkSite?}&orTerms={orTerms?}&dateRestrict={dateRestrict?}&lowRange={lowRange?}&highRange={highRange?}&searchType={searchType}&fileType={fileType?}&rights={rights?}&imgSize={imgSize?}&imgType={imgType?}&imgColorType={imgColorType?}&imgDominantColor={imgDominantColor?}&alt=json"
+   },
+   queries:{
+      request:[
+         {
+            title:"Google Custom Search - russian war crimes in ukraine",
+            totalResults:"168000",
+            searchTerms:"russian war crimes in ukraine",
+            count:10,
+            startIndex:1,
+            inputEncoding:"utf8",
+            outputEncoding:"utf8",
+            safe:"off",
+            dateRestrict:"w"
+         }
+      ],
+      nextPage:[
+         {
+            title:"Google Custom Search - russian war crimes in ukraine",
+            totalResults:"168000",
+            searchTerms:"russian war crimes in ukraine",
+            count:10,
+            startIndex:11,
+            inputEncoding:"utf8",
+            outputEncoding:"utf8",
+            safe:"off",
+            dateRestrict:"w"
+         }
+      ]
+   },
+   context:{
+      title:"searcher"
+   },
+   searchInformation:{
+      searchTime:0.328212,
+      formattedSearchTime:"0.33",
+      totalResults:"168000",
+      formattedTotalResults:"168,000"
+   },
+   items:[
+      {
+         kind:"customsearch#result",
+         title:"War crimes in the Russian invasion of Ukraine - Wikipedia",
+         htmlTitle:"<b>War crimes</b> in the <b>Russian</b> invasion of <b>Ukraine</b> - Wikipedia",
+         link:"https://en.wikipedia.org/wiki/War_crimes_in_the_Russian_invasion_of_Ukraine",
+         displayLink:"en.wikipedia.org",
+         snippet:"22 hours ago ... The Russian military and authorities have committed war crimes, such as deliberate attacks against civilian targets, including on hospitals, medical facilities ...",
+         htmlSnippet:"22 hours ago <b>...</b> The <b>Russian</b> military and authorities have committed <b>war crimes</b>, such as deliberate attacks against civilian targets, including on hospitals, medical facilities&nbsp;...",
+         formattedUrl:"https://en.wikipedia.org/.../War_crimes_in_the_Russian_invasion_of_Ukrai...",
+         htmlFormattedUrl:"https://en.wikipedia.org/.../<b>War</b>_<b>crimes</b>_in_the_<b>Russian</b>_invasion_of_<b>Ukrai</b>...",
+         pagemap:{
+            metatags:[
+               {
+                  referrer:"origin",
+                  viewport:"width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=0.25, maximum-scale=5.0"
+               }
+            ]
+         }
+      },
+      {
+         kind:"customsearch#result",
+         title:"Kyiv investigates another case of Russian soldiers executing ...",
+         htmlTitle:"Kyiv investigates another case of <b>Russian</b> soldiers executing ...",
+         link:"https://www.politico.eu/article/russian-soliders-shot-disarmed-ukrainian-pows-filmed-execution/",
+         displayLink:"www.politico.eu",
+         snippet:"4 days ago ... KYIV — Ukraine's Prosecutor General's Office opened a criminal case against Russia for war crimes in Ukraine on Thursday after a video emerged showing ...",
+         htmlSnippet:"4 days ago <b>...</b> KYIV — <b>Ukraine&#39;s</b> Prosecutor General&#39;s Office opened a criminal case against Russia for <b>war crimes</b> in <b>Ukraine</b> on Thursday after a video emerged showing&nbsp;...",
+         formattedUrl:"https://www.politico.eu/.../russian-soliders-shot-disarmed-ukrainian-pows-fi...",
+         htmlFormattedUrl:"https://www.politico.eu/.../<b>russian</b>-soliders-shot-disarmed-ukrainian-pows-fi...",
+         pagemap:{
+            cse_thumbnail:[
+               {
+                  src:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUkdm14DMxrJfG_gazp2PM89VwsX0q5PR1W7Yk_hsHbbSaOTXK7LQ6kcE&s",
+                  width:"310",
+                  height:"163"
+               }
+            ],
+            website:[
+               {
+                  target:"https://www.politico.eu/?s={s}"
+               }
+            ],
+            metatags:[
+               {
+                  section:"defense",
+                  viewport:"width=device-width, initial-scale=1"
+               }
+            ],
+            cse_image:[
+               {
+                  src:"https://www.politico.eu/cdn-cgi/image/width=1200,height=630,fit=crop,quality=80,onerror=redirect/wp-content/uploads/2025/01/23/GettyImages-1248079607-scaled.jpg"
+               }
+            ]
+         }
+      },
+      {
+         kind:"customsearch#result",
+         title:"Breaking the Chain: Paths to Stop U.S.-Made Component Exports ...",
+         htmlTitle:"Breaking the Chain: Paths to Stop U.S.-Made Component Exports ...",
+         link:"https://harriman.columbia.edu/event/breaking-the-chain-paths-to-stop-u-s-made-component-exports-into-russian-war-crimes-in-ukraine/",
+         displayLink:"harriman.columbia.edu",
+         snippet:"4 days ago ... ... Russian War Crimes in Ukraine. Tuesday, February 11, 2025. Breaking the ... Russian War Crimes in Ukraine. Reserve Your Seat. Registration REQUIRED by 4pm ...",
+         htmlSnippet:"4 days ago <b>...</b> ... <b>Russian War Crimes</b> in <b>Ukraine</b>. Tuesday, February 11, 2025. Breaking the ... <b>Russian War Crimes</b> in <b>Ukraine</b>. Reserve Your Seat. Registration REQUIRED by 4pm&nbsp;...",
+         formattedUrl:"https://harriman.columbia.edu/.../breaking-the-chain-paths-to-stop-u-s-mad...",
+         htmlFormattedUrl:"https://harriman.columbia.edu/.../breaking-the-chain-paths-to-stop-u-s-mad...",
+         pagemap:{
+            Event:[
+               {
+                  image:"https://harriman.columbia.edu/wp-content/uploads/2025/01/2025-02-11-IPHR-Event.png",
+                  endDate:"2025-02-11T13:30:00-05:00",
+                  eventStatus:"http://schema.org/EventScheduled",
+                  name:"Breaking the Chain: Paths to Stop U.S.-Made",
+                  description:"<p>Please join the Harriman Institute and the",
+                  eventAttendanceMode:"http://schema.org/OfflineEventAttendanceMode",
+                  url:"https://harriman.columbia.edu/event/breaking-the-chain-paths-to-stop-u-s-made-component-exports-into-russian-war-crimes-in-ukraine/",
+                  startDate:"2025-02-11T12:00:00-05:00"
+               }
+            ]
+         }
+      },
+      {
+         kind:"customsearch#result",
+         title:"Arria-formula Meeting on Ukraine : What's In Blue : Security Council ...",
+         htmlTitle:"Arria-formula Meeting on <b>Ukraine</b> : What&#39;s In Blue : Security Council ...",
+         link:"https://www.securitycouncilreport.org/whatsinblue/2025/01/arria-formula-meeting-on-ukraine-5.php",
+         displayLink:"www.securitycouncilreport.org",
+         snippet:"4 days ago ... ... war crimes committed by Russian troops in Ukraine for its own political purposes. They may allude to international investigations that have documented ...",
+         htmlSnippet:"4 days ago <b>...</b> ... <b>war crimes</b> committed by <b>Russian</b> troops in <b>Ukraine</b> for its own political purposes. They may allude to international investigations that have documented&nbsp;...",
+         formattedUrl:"https://www.securitycouncilreport.org/.../arria-formula-meeting-on-ukraine...",
+         htmlFormattedUrl:"https://www.securitycouncilreport.org/.../arria-formula-meeting-on-<b>ukraine</b>...",
+         pagemap:{
+            cse_thumbnail:[
+               {
+                  src:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT16x_3mjUjtv5j1pfOKbJUu4Bu7QDd3bWKKpLwGpwijB-6PU2-oroUthk&s",
+                  width:"330",
+                  height:"153"
+               }
+            ],
+            metatags:[
+               {
+                  viewport:"width=device-width, initial-scale=1"
+               }
+            ],
+            cse_image:[
+               {
+                  src:"https://www.securitycouncilreport.org/wp-content/themes/scr2018/_resources/img/global/SCR-logo-share-1400.png"
+               }
+            ]
+         }
+      },
+      {
+         kind:"customsearch#result",
+         title:"MEPs condemn Russia's use of disinformation to justify its war in ...",
+         htmlTitle:"MEPs condemn <b>Russia&#39;s</b> use of disinformation to justify its <b>war</b> in ...",
+         link:"https://www.europarl.europa.eu/news/en/press-room/20250116IPR26330/meps-condemn-russia-s-use-of-disinformation-to-justify-its-war-in-ukraine",
+         displayLink:"www.europarl.europa.eu",
+         snippet:"4 days ago ... ... Soviet crimes, and for cracking down ... Russian media outlets conducting disinformation campaigns championing Russia's war of aggression against Ukraine.",
+         htmlSnippet:"4 days ago <b>...</b> ... Soviet <b>crimes</b>, and for cracking down ... <b>Russian</b> media outlets conducting disinformation campaigns championing Russia&#39;s <b>war</b> of aggression against <b>Ukraine</b>.",
+         formattedUrl:"https://www.europarl.europa.eu/.../meps-condemn-russia-s-use-of-disinfor...",
+         htmlFormattedUrl:"https://www.europarl.europa.eu/.../meps-condemn-russia-s-use-of-disinfor...",
+         pagemap:{
+            cse_thumbnail:[
+               {
+                  src:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTexaWNW9QRJR_z7hNSy6R1EphcLpi1YdQLUA_5568848E3-ayqQ6o8EvQ&s",
+                  width:"310",
+                  height:"163"
+               }
+            ],
+            metatags:[
+               {
+                  planet:"news",
+                  available:"23-01-2025",
+                  language:"en",
+                  routes:"productSubType:PLENARY_SESSION",
+                  viewport:"width=device-width, initial-scale=1.0"
+               }
+            ],
+            cse_image:[
+               {
+                  src:"https://www.europarl.europa.eu/news/img/meta-facebook.jpg"
+               }
+            ]
+         }
+      },
+      {
+         kind:"customsearch#result",
+         title:"Russian war crimes in Ukraine - Ukraine Crisis Media Center ...",
+         htmlTitle:"<b>Russian war crimes in Ukraine</b> - Ukraine Crisis Media Center ...",
+         link:"https://uacrisis.org/en/voienni-zlochyny-rf-en",
+         displayLink:"uacrisis.org",
+         snippet:"4 days ago ... Russian war crimes in Ukraine · Latest stories · Contacts · UCMC Press center · Departments. UCMC Press center · Hybrid Warfare Analytical Group · Media reboot ...",
+         htmlSnippet:"4 days ago <b>...</b> <b>Russian war crimes</b> in <b>Ukraine</b> &middot; Latest stories &middot; Contacts &middot; UCMC Press center &middot; Departments. UCMC Press center &middot; Hybrid Warfare Analytical Group &middot; Media reboot&nbsp;...",
+         formattedUrl:"https://uacrisis.org/en/voienni-zlochyny-rf-en",
+         htmlFormattedUrl:"https://uacrisis.org/en/voienni-zlochyny-rf-en",
+         pagemap:{
+            cse_thumbnail:[
+               {
+                  src:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2L1ZFCdou2GXl8vGV1YkgZFjn-Nxz66HqQxxxZYDdv_btNkRYeW3pXGDl&s",
+                  width:"299",
+                  height:"168"
+               }
+            ],
+            metatags:[
+               {
+                  viewport:"initial-scale=1.0, minimum-scale=1.0, height=device-height, width=device-width"
+               }
+            ],
+            cse_image:[
+               {
+                  src:"https://uacrisis.org/wp-content/uploads/2025/01/tsifri-2325x1620-px-4-364x205.jpeg"
+               }
+            ]
+         }
+      },
+      {
+         kind:"customsearch#result",
+         title:"MOTION FOR A RESOLUTION on Russia's disinformation and ...",
+         htmlTitle:"MOTION FOR A RESOLUTION on <b>Russia&#39;s</b> disinformation and ...",
+         link:"https://www.europarl.europa.eu/doceo/document/B-10-2025-0075_EN.html",
+         displayLink:"www.europarl.europa.eu",
+         snippet:"6 days ago ... ... war of aggression against Ukraine, are being persecuted under Russian legislation;. N. whereas the whitewashing and glorification of Soviet crimes, including ...",
+         htmlSnippet:"6 days ago <b>...</b> ... <b>war</b> of aggression against <b>Ukraine</b>, are being persecuted under <b>Russian</b> legislation;. N. whereas the whitewashing and glorification of Soviet <b>crimes</b>, including&nbsp;...",
+         formattedUrl:"https://www.europarl.europa.eu/doceo/document/B-10-2025-0075_EN.html",
+         htmlFormattedUrl:"https://www.europarl.europa.eu/doceo/document/B-10-2025-0075_EN.html",
+         pagemap:{
+            cse_thumbnail:[
+               {
+                  src:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKYAXFH3nKu3dyjkiAn5H31EjXlKtOwANUh5QquD2iTHjNrNRRiabr784&s",
+                  width:"310",
+                  height:"163"
+               }
+            ],
+            metatags:[
+               {
+                  copyright:"© European Union, 2025 - Source: European Parliament",
+                  viewport:"width=device-width, initial-scale=1, shrink-to-fit=no",
+                  author:"Michael GAHLER, Daniel CASPARY, Antonio LÓPEZ-ISTÚRIZ WHITE, Inese VAIDERE, Seán KELLY, Milan ZVER, Sandra KALNIETE, Andrey KOVATCHEV, Ana Miguel PEDRO, Davor Ivo STIER, Siegfried MUREŞAN, David MCALLISTER, Željana ZOVKO, Isabel WISELER-LIMA, Andrzej HALICKI, Łukasz KOHUT, Rasa JUKNEVIČIENĖ, Miriam LEXMANN, Matej TONIN, Krzysztof BREJZA, Pekka TOVERI, Paulius SAUDARGAS, Mika AALTOLA, Ondřej KOLÁŘ, Danuše NERUDOVÁ, Ingeborg TER LAAK, Michał SZCZERBA, Nicolás PASCUAL DE LA PARTE, Mirosława NYKIEL, Sebastião BUGALHO, Alice TEODORESCU MÅWE",
+                  available:"20-01-2025",
+                  language:"en",
+                  title:"MOTION FOR A RESOLUTION on Russia’s disinformation and historical falsification to justify its war of aggression against Ukraine | B10-0075/2025 | European Parliament"
+               }
+            ],
+            cse_image:[
+               {
+                  src:"https://www.europarl.europa.eu/website/common/img/icon/sharelogo_facebook.jpg"
+               }
+            ]
+         }
+      },
+      {
+         kind:"customsearch#result",
+         title:"Finland on the frontline for trying Russians for war crimes",
+         htmlTitle:"Finland on the frontline for trying <b>Russians</b> for <b>war crimes</b>",
+         link:"https://www.justiceinfo.net/en/140579-finland-frontline-trying-russians-war-crimes.html",
+         displayLink:"www.justiceinfo.net",
+         snippet:"4 days ago ... ... Russian citizen is charged with war crimes committed in Ukraine. Voislav Torden is accused of leading an ambush attack in which 22 Ukrainian soldiers were ...",
+         htmlSnippet:"4 days ago <b>...</b> ... <b>Russian</b> citizen is charged with <b>war crimes</b> committed in <b>Ukraine</b>. Voislav Torden is accused of leading an ambush attack in which 22 Ukrainian soldiers were&nbsp;...",
+         formattedUrl:"https://www.justiceinfo.net/.../140579-finland-frontline-trying-russians-war...",
+         htmlFormattedUrl:"https://www.justiceinfo.net/.../140579-finland-frontline-trying-<b>russian</b>s-<b>war</b>...",
+         pagemap:{
+            cse_thumbnail:[
+               {
+                  src:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIfoXgtEo7vbhg6j5SZN2nZ1XjG60RRrAw4Co7wi-aNDz7JY2klJtVYw&s=0",
+                  width:"150",
+                  height:"79"
+               }
+            ],
+            metatags:[
+               {
+                  author:"Jeanette Björkqvist",
+                  viewport:"width=device-width, initial-scale=1.0"
+               }
+            ],
+            cse_image:[
+               {
+                  src:"https://www.justiceinfo.net/images/cache/post/social_w1200_h628_c/Ukraine-Finland_Voislav-Torden-trial_@Heikki-Saukkomaa-Lehtikuva-AFP.jpg"
+               }
+            ]
+         }
+      },
+      {
+         kind:"customsearch#result",
+         title:"U.S. Launches Program To Document War Crimes In Ukraine",
+         htmlTitle:"U.S. Launches Program To Document <b>War Crimes In Ukraine</b>",
+         link:"https://www.rferl.org/a/us-document-russian-atrocities/31855294.html",
+         displayLink:"www.rferl.org",
+         snippet:"2 days ago ... The US State Department has announced the launch of a new program to capture and analyze evidence of war crimes and other atrocities committed by Russian ...",
+         htmlSnippet:"2 days ago <b>...</b> The US State Department has announced the launch of a new program to capture and analyze evidence of <b>war crimes</b> and other atrocities committed by <b>Russian</b>&nbsp;...",
+         formattedUrl:"https://www.rferl.org/a/us-document-russian-atrocities/31855294.html",
+         htmlFormattedUrl:"https://www.rferl.org/a/us-document-<b>russian</b>-atrocities/31855294.html",
+         pagemap:{
+            metatags:[
+               {
+                  uthor:"RFE/RL",
+                  viewport:"width=device-width, initial-scale=1.0"
+               }
+            ]
+         }
+      },
+      {
+         kind:"customsearch#result",
+         title:"Ukraine Conflict Monitor",
+         htmlTitle:"<b>Ukraine</b> Conflict Monitor",
+         link:"https://acleddata.com/ukraine-conflict-monitor/",
+         displayLink:"acleddata.com",
+         snippet:"4 days ago ... Ukraine War Situation Update: 11 – 17 January 2025. 1160 political ... Ukrainian or Russian military; Russian border guards; Pro-Ukrainian Russian ...",
+         htmlSnippet:"4 days ago <b>...</b> <b>Ukraine War</b> Situation Update: 11 – 17 January 2025. 1160 political ... Ukrainian or <b>Russian</b> military; <b>Russian</b> border guards; Pro-Ukrainian <b>Russian</b>&nbsp;...",
+         formattedUrl:"https://acleddata.com/ukraine-conflict-monitor/",
+         htmlFormattedUrl:"https://acleddata.com/<b>ukraine</b>-conflict-monitor/",
+         pagemap:{
+            cse_thumbnail:[
+               {
+                  src:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdp7FEZ4tb0QX9na_Glf1qQdgSmwcIFvMFBDXNZ2gHAdF9YK048TOYrcr3&s",
+                  width:"308",
+                  height:"163"
+               }
+            ],
+            metatags:[
+               {
+                  viewport:"width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+               }
+            ],
+            cse_image:[
+               {
+                  src:"https://acleddata.com/acleddatanew/wp-content/uploads/2023/03/UCM_Upd.png"
+               }
+            ]
+         }
+      }
+   ]
+};
 
       const expectedUrls = [
-        'https://www.politico.eu/article/ex-russia-wagner-officer-russia-atrocities-ukraine-war-crimes-igor-salikov/',
-        'https://english.nv.ua/nation/former-russian-soldier-ready-to-testify-about-russian-crimes-in-ukraine-50378531.html',
-        'https://www.reuters.com/world/europe/un-decries-russias-failure-protect-ukraine-civilians-2023-12-19/',
-        'https://en.defence-ua.com/analysis/war_criminals_from_the_russian_federation_or_bureaucrats_from_the_un_who_holds_ukrainian_prisoners_of_war-8920.html',
-        'https://www.rferl.org/a/ukraine-russia-bucha-killings-atrocities-condemnation/31784634.html'
+        'https://en.wikipedia.org/wiki/War_crimes_in_the_Russian_invasion_of_Ukraine',
+        'https://www.politico.eu/article/russian-soliders-shot-disarmed-ukrainian-pows-filmed-execution/',
+        'https://harriman.columbia.edu/event/breaking-the-chain-paths-to-stop-u-s-made-component-exports-into-russian-war-crimes-in-ukraine/',
+        'https://www.securitycouncilreport.org/whatsinblue/2025/01/arria-formula-meeting-on-ukraine-5.php',
+        'https://www.europarl.europa.eu/news/en/press-room/20250116IPR26330/meps-condemn-russia-s-use-of-disinformation-to-justify-its-war-in-ukraine',
+        'https://uacrisis.org/en/voienni-zlochyny-rf-en',
+        'https://www.europarl.europa.eu/doceo/document/B-10-2025-0075_EN.html',
+        'https://www.justiceinfo.net/en/140579-finland-frontline-trying-russians-war-crimes.html',
+        'https://www.rferl.org/a/us-document-russian-atrocities/31855294.html',
+        'https://acleddata.com/ukraine-conflict-monitor/'
       ];
 
-      expect(extractLinks(html)).to.eql(expectedUrls);
+      expect(extractLinks(json)).to.eql(expectedUrls);
     });
   });

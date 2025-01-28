@@ -1,23 +1,43 @@
 /*global console, fetch*/
 import extractLinks from './links-extractor.mjs';
-
-const url = 'https://www.google.com/search?q=russian+war+crimes+in+ukraine&tbs=qdr:w';
+import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-secrets-manager";
 
 const performSearch = async () => {
   console.trace('entered performSearch');
-  try {
-    const res = await fetch(url);
 
-    console.trace('entered crawler callback');
+    const apiKeySecretName = "GOOGLE_SEARCH_API_KEY";
+    const apiIdSecretName = "GOOGLE_SEARCH_ID";
 
-    let data = await res.text();
+    const client = new SecretsManagerClient({
+        region: "eu-central-1",
+    });
 
-    console.trace('retrieved all data');
-    return extractLinks(data);
+    try {
+      const apiKey = await client.send(
+          new GetSecretValueCommand({
+              SecretId: apiKeySecretName,
+              VersionStage: "AWSCURRENT"
+          })
+      );
+      const apiId = await client.send(
+        new GetSecretValueCommand({
+            SecretId: apiIdSecretName,
+            VersionStage: "AWSCURRENT"
+        })
+      );
+      const url = `https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=${apiId}&q=russian+war+crimes+in+ukraine&dateRestrict=w`;
+      const res = await fetch(url);
 
-  } catch (err) {
-    console.error(err);
-  }
+      console.trace('entered crawler callback');
+
+      const data = await res.json();
+
+      console.trace('retrieved all data');
+      return extractLinks(data);
+
+    } catch (err) {
+      console.error(err);
+    }
 }
 
 export default performSearch;
